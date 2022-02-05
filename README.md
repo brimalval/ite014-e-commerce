@@ -8,63 +8,63 @@ UI marked up from scratch, based on the layout of popular e-Commerce websites "L
 
 ## Pages
 <figure>
+<figcaption><b>Homepage</b></figcaption>
 <img src="https://i.imgur.com/ydJqXby.png" alt="Lazopee homepage" style="width:100%">
-<figcaption align = "center"><b>Homepage</b></figcaption>
 </figure>
 
 <figure>
+<figcaption><b>Search</b></figcaption>
 <img src="https://i.imgur.com/jwArS3e.png" alt="Lazopee search functionality" style="width:100%">
-<figcaption align = "center"><b>Search</b></figcaption>
 </figure>
 
 <figure>
+<figcaption><b>Sign-up</b></figcaption>
 <img src="https://i.imgur.com/FUrPlbN.png" alt="Lazopee sign-up page" style="width:100%">
-<figcaption align = "center"><b>Sign-up</b></figcaption>
 </figure>
 
 * Users are required to sign up in order to make transactions. Signing up here leads to the log-in page.
 
 <figure>
+<figcaption><b>Log-in</b></figcaption>
 <img src="https://i.imgur.com/HhIwqTG.png" alt="Lazopee log-in page" style="width:100%">
-<figcaption align = "center"><b>Log-in</b></figcaption>
 </figure>
 
 <figure>
+<figcaption><b>Manage Account</b></figcaption>
 <img src="https://i.imgur.com/3SeDmPW.png" alt="Lazopee manage account" style="width:100%">
-<figcaption align = "center"><b>Manage Account</b></figcaption>
 </figure>
 
 <figure>
+<figcaption><b>Edit Profile</b></figcaption>
 <img src="https://i.imgur.com/KL3vMX1.png" alt="Lazopee edit profile" style="width:100%">
-<figcaption align = "center"><b>Edit Profile</b></figcaption>
 </figure>
 
 <figure>
+<figcaption><b>Product Page</b></figcaption>
 <img src="https://i.imgur.com/UnURRhY.png" alt="Lazopee product page">
-<figcaption align = "center"><b>Product Page</b></figcaption>
 </figure>
 
 * Attempting to make an order without setting an address will show an error and redirect the user to the address list page.
 
 <figure>
+<figcaption><b>Address List</b></figcaption>
 <img src="https://i.imgur.com/JohouOJ.png" alt="Lazopee address list">
-<figcaption align = "center"><b>Address List</b></figcaption>
 </figure>
 
 * Similarly, attempting to do a transaction without having a payment option available will show an error and lead the user to the payment option page.
 
 <figure>
+<figcaption><b>Payment Options</b></figcaption>
 <img src="https://i.imgur.com/V4l1WrN.png" alt="Lazopee payment options">
 <img src="https://i.imgur.com/Ocyzjgs.png" alt="Lazopee payment options">
-<figcaption align = "center"><b>Payment Options</b></figcaption>
 </figure>
 
 <figure>
+<figcaption><b>Product Example (w/ payment option & address)</b></figcaption>
 <img src="https://i.imgur.com/GPyjBkD.png" alt="Lazopee product sample">
-<figcaption align = "center"><b>Product Example (w/ payment option & address)</b></figcaption>
 </figure>
 
 <figure>
+<figcaption><b>Cart</b></figcaption>
 <img src="https://i.imgur.com/cvDRBBL.png" alt="Lazopee cart">
-<figcaption align = "center"><b>Cart</b></figcaption>
 </figure>
