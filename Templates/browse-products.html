@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/universal.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div class="head-wrapper">
+        {% include 'header-bar.html' %}
+    </div>
+
+    <div class="content">
+        <h1 class="deal-lbl">
+            {% if sscategory is not none %}
+                {{ sscategory }}
+            {% endif %}
+            {% if subcategory is not none %}
+                {{ subcategory }}
+            {% endif %}
+            {{ category }}
+        </h1>
+		<div class="products">
+            {% if products[0] is defined %}
+                {% for product in products %}
+                <div class="item-container">
+                    <a href="/product?id={{ product['product_id'] }}">
+                        <div class="icon-wrapper">
+                            {% if product['image_name'] is none %}
+                            <img src="{{ url_for('static', filename='img/no-img.jpg') }}">
+                            {% else %}
+                            <img src="{{ url_for('static', filename=product['image_name']) }}">
+                            {% endif %}
+                        </div>
+                        <div class="item-name">
+                            <p>{{ product['name'] }}</p>
+                        </div>
+                        <div class="item-price">
+                            <label class="final-price">₱{{ product['price']|round(2) }}</label>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h1 style="color: white; margin: 50px;">No products of this type yet.</h1> 
+            {% endif %}
+		</div>
+    </div>
+</body>
+</html>

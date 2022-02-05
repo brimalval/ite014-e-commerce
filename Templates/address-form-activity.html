@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Address</title>
+	<style>
+		label{
+			display: block;
+		}
+		button{
+			display: block;
+			margin-top: 20px;
+		}
+
+		table{
+			border: 5px solid black;
+		}
+
+		td, th{
+			border: 1px solid black;
+			width: 100px;
+		}
+
+		th{
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<form method="POST">
+		<label for="address1">Address 1</label>
+		<input type="text" name="address1" id="address1">
+		<label for="address2">Address 2</label>
+		<input type="text" name="address2" id="address2">
+		<label for="city">City</label>
+		<input type="text" name="city" id="city">
+		<label for="postal_code">Postal Code</label>
+		<input type="text" name="postal_code" id="postal_code">
+		<label for="countries">Country</label>
+		<select name="country" id="country">
+			<option value="AF">Afghanistan</option>
+			<option value="PH">Philippines</option>
+			<option value="US">United States of America</option> 
+			<option value="UZ">Uzbekistan</option>
+			<option value="ZW">Zimbabwe</option>
+		</select>
+		<button type="submit">Submit</button>
+	</form>
+	<table>
+		<tr>
+			<th>Customer ID</th>
+			<th>Address 1</th>
+			<th>Address 2</th>
+			<th>City</th>
+			<th>Postal Code</th>
+			<th>Country Code</th>
+		</tr>
+			{% for address in addresses %}
+				<tr>
+					<td>{{address['customer_id']}}</td>
+					<td>{{address['address1']}}</td>
+					<td>{{address['address2']}}</td>
+					<td>{{address['city']}}</td>
+					<td>{{address['postal_code']}}</td>
+					<td>{{address['country_code']}}</td>
+				</tr>
+			{% endfor %}
+	</table>
+</body>
+</html>

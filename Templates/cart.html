@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/universal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <title>Cart</title>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            function changeSubtotal(i){
+                var currSt = parseFloat($('.subtotal-val')[0].innerHTML.substring(1));
+                currSt += i;
+                $('.subtotal-val')[0].innerHTML = "₱" + currSt.toFixed(2);
+            }
+            function changeSF(i){
+                var currSp = parseFloat($('.subtotal-val')[1].innerHTML.substring(1));
+                currSp += i;
+                $('.subtotal-val')[1].innerHTML = "₱" + currSp.toFixed(2);
+            }
+            function changeTotal(i){
+                var currTot = parseFloat($('.total-val')[0].innerHTML.substring(1));
+                currTot += i;
+                $('.total-val')[0].innerHTML = "₱" + currTot.toFixed(2);
+            }
+            $('.pd-chkbx').change(function(){
+                var prod_price = parseFloat($('.product-price')[this.value].innerHTML.substring(1));
+                var prod_qty = parseFloat($('.product-qty')[this.value].innerHTML.substring(5));
+                var ship_fee = parseFloat($('.product-sf')[this.value].innerHTML);
+                if(this.checked){
+                    changeSubtotal(prod_price * prod_qty);
+                    changeSF(ship_fee);
+                    changeTotal((prod_price * prod_qty) + ship_fee);
+                }else{
+                    changeSubtotal(-1 * prod_price * prod_qty);
+                    changeSF(-1 * ship_fee);
+                    changeTotal(-1 * ((prod_price * prod_qty) + ship_fee));
+                }
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <div class="head-wrapper">
+        {% include 'header-bar.html' %}
+    </div>
+    <div class="content">
+        <form method="POST">
+        <div class="left-separator">
+			<div class="item-details-and-delivery-option">
+                    {% for product in cart_orders %}
+                        <div class="cart-item">
+                            <div class="top-bar">
+                                <input class="pd-chkbx" id="product-{{ loop.index0 }}" type="checkbox" name="prod_index" value="{{ loop.index0 }}">
+                                <label for="product-{{ loop.index0 }}"></label>
+                                <h4 style="display: inline-block; color: white; font-weight: 400;">Delivered by {{ product['cname'] }}</h4>
+                            </div>
+                            <div class="mid-bar">
+                                <div class="thumb-wrapper">
+                                    {% if thumbs[loop.index0]['image_name'] is none %}
+                                        {% set imgpath = 'img/no-img.jpg' %}
+                                    {% else %}
+                                        {% set imgpath = thumbs[loop.index0]['image_name'] %}
+                                    {% endif %}
+                                    <img src="{{ url_for('static', filename=imgpath) }}">
+                                </div>
+                                <h4 class="product-sf" style="display: none;">{{ product['cprice'] }}</h4>
+                                <div class="cart-product-details">
+                                    <div class="product-details-col1">
+                                        <h4 class="product-name">{{ product['pname'] }}</h1>
+                                        <h4 class="product-brand">{{ product['brand'] }}</h1>
+                                    </div>
+                                    <div class="product-details-col2">
+                                        <h4 class="product-price">₱{{ product['pprice']|round(2) }}</h4>
+                                        <h4 class="product-qty">Qty: {{ product['quantity'] }}</h4>
+                                        <button class="rmv-btn" name="remove_ind" value="{{ product['product_id'] }}" type="submit"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+		<div class="right-separator">
+			<div class="order-summary">
+                <h4 class="order-summ-lbl">Order summary</h4>
+                <div class="subtotal"><h4 class="subtotal-lbl">Subtotal:</h4> <h4 class="subtotal-val">₱0.00</h4></div>
+                <div class="subtotal"><h4 class="subtotal-lbl">Shipping fee:</h4> <h4 class="subtotal-val">₱0.00</h4></div>
+                <div class="subtotal"><h4 class="subtotal-lbl">Total:</h4> <h4 class="total-val">₱0.00</h4></div>
+                <button class="check-out" type="submit">Check-out</button>
+			</div>
+		</div>
+    </form>
+    </div>
+</body>
+</html>

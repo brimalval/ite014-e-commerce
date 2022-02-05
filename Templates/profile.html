@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Manage Account</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/universal.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+
+	<div class="content">
+		<div class="profile-navigation">
+			<div class="greeting">
+				{% include 'greeting.html' %}
+			</div>
+			<div class="nav-items">
+				<ul>
+					<li class="nav-item"><a style="color: purple" href="/user">Manage Account</a>
+						<ul>
+							<li><a href="/profile">Profile</a></li>
+							<li><a href="/address">Address List</a></li>
+							<li><a href="/payment-options">Payment Options</a></li>
+						</ul>
+					</li>
+					<li class="nav-item"><a href="/orders">My Orders</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="profile-edit">
+			<h1 id="window-title">Manage Account</h1>
+			<div class="edit-window">
+				<div class="personal-details">
+					<h4 id="add-list-lbl">Profile<span id="divider-vert"> | </span><a href="/profile">Edit</a></h4>
+
+					<p id="user-disp-name">{{ ud }}</p>
+				</div>
+		
+				<div class="address-list">
+					<h4 id="add-list-lbl">Address List <span id="divider-vert">|</span> <a href="/address">Edit</a></h4>
+					<div class="scrollable-window">
+						{% if addresses[0] is defined %}
+							{% for address in addresses %}
+								<div class="add-list-item">
+									<div class="full-address">
+										<div class="col-add-1">
+											<h4 style="display: block;">{{ address['address1'] }}</h4>
+											<h4 style="display: block;">{{ address['address2'] }}</h4>
+											<h4 style="display: block;">{{ address['postal_code'] }}</h4>
+										</div>
+										<div class="col-add-2">
+											<h4 style="font-weight:400;display:block;">{{ address['city'] }}, {{ address['name'] }}</h4>
+											<h4 style="font-weight: 400; display: block;">{{ contact }}</h4>
+											<h4 style="font-weight: 400; display: block;">{{ ud }}</h4>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						{% else %}
+							<h4 style="font-weight: 400">No addresses.</h4>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

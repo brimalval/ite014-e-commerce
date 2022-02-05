@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ key }} - Lazopee Search Results</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/universal.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+	<div class="content">
+		<h1 class="deal-lbl">{{ key }} - Search Results ({{ count['count'] }} found)</h1>
+		<div class="products">
+			{% for product in products %}
+			<div class="item-container">
+				<a href="/product?id={{ product_ids[loop.index0]['product_id'] }}">
+					<div class="icon-wrapper">
+						{% if product['image_name'] != none %}
+							{% set imgpath = product['image_name'] %}
+						{% else %}
+							{% set imgpath = 'img/no-img.jpg' %}
+						{% endif %}
+						<img src="{{ url_for('static', filename=imgpath) }}">
+					</div>
+					<div class="item-name">
+						<p>{{ product['name'] }}</p>
+					</div>
+					<div class="item-price">
+						<label class="final-price">₱{{ product['price']|round(2) }}</label>
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+</html>

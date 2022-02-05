@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Profile</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/universal.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+
+	<div class="content">
+		<div class="profile-navigation">
+			<div class="greeting">
+				{% include 'greeting.html' %}
+			</div>
+			<div class="nav-items">
+				<ul>
+					<li class="nav-item"><a href="/user">Manage Account</a>
+						<ul>
+							<li><a style="color: purple" href="/profile">Profile</a></li>
+							<li><a href="/address">Address List</a></li>
+							<li><a href="/payment-options">Payment Options</a></li>
+						</ul>
+					</li>
+					<li class="nav-item"><a href="/orders">My Orders</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="profile-edit">
+			<h1 id="window-title">Profile</h1>
+			<div class="edit-window" style="background-color: #606060">
+				<form method="POST">
+					<div class="profile-edit-column col1">
+						<div class="profile-edit-item full-name">
+							<h4 class="profile-edit-lbl">Full Name</h4>
+							<input type="text" name="fn" placeholder="First name" value="{{ user_details['first_name'] }}" required>
+							<input type="text" name="ln" placeholder="Last name" value="{{ user_details['last_name'] }}" required>
+						</div>
+						<div class="profile-edit-item not-editable">
+							<div class="not-editable-div">
+								<h4 class="profile-edit-lbl">Username</h4>
+								<p class="profile-edit-username">{{ user_details['username'] }}</p>
+							</div>
+							<div class="not-editable-div">
+								<h4 class="profile-edit-lbl">E-Mail</h4>
+								<p class="profile-edit-e-mail">{{ user_details['email_address'] }}</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="profile-edit-column col2">
+						<div class="profile-edit-item bday">
+							<h4 class="profile-edit-lbl">Birthdate</h4>
+							<input type="date" name="bday" value="{{ user_details['birthday'] }}">
+						</div>
+						<div class="profile-edit-item contact">
+							<h4 class="profile-edit-lbl">Contact Number</h4>
+							<input type="text" name="contact" placeholder="Contact Number" value="{{ user_details['contact'] }}">
+						</div>
+					</div>
+					
+					<div class="profile-edit-column col3">
+						<div class="profile-edit-item gender">
+							<h4 class="profile-edit-lbl">Gender</h4>
+							<select name="gender">
+								{% if user_details['gender'] == 0 %}
+									<option value="0" selected>Male</option>
+									<option value="1">Female</option>
+								{% else %}
+									<option value="0">Male</option>
+									<option value="1" selected>Female</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					
+					<div class="button-div">
+						<button type="submit">Save Details</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

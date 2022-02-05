@@ -1,0 +1,245 @@
+*{
+	list-style: none;
+}
+
+.content *{
+	font-family: "verdana";
+}
+
+.categories-and-slideshow{
+	position: relative;
+	width: 100vw;
+	height: 400px;
+}
+
+.categories-and-slideshow div{
+	display: inline-block;
+}
+
+.categories{
+	width: 200px;
+	height: 100%;
+	position: absolute;
+	background-color: #202020;
+	left: calc(50% - 515px);
+	transform: translateX(-50%);
+	padding-top: 5px;
+	z-index: 11;
+}
+
+.categories ul a{
+	color: white;
+	text-decoration: none;
+}
+
+.category{
+	margin-bottom: 5px
+	transition: all 0.25s ease;
+	padding-left: 25px;
+	z-index: 10;
+	line-height: 45px;
+}
+
+.category, .category *{
+	z-index: 10;
+}
+
+.category:hover{
+	transition: 0.5s;
+	background-color: #a24cc2;
+}
+
+.category .fa-chevron-right{
+	position: relative;
+	float: right;
+	top: 15px;
+	right: 5px;
+	display: none;
+}
+
+.category:hover .fa-chevron-right{
+	transition: 0.5s;
+	display: block;
+}
+
+.category a{
+	display: block;
+	font-size: 22px;
+	line-height: 50px;
+}
+
+.category .subcategory{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 200px;
+	z-index: 9;
+	height: 100%;
+	padding-top: 5px;
+}
+
+.subcategory ul{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 200px;
+	z-index: 9;
+	height: 100%;
+	padding-top: 5px;
+}
+
+.category .subcategory{
+	z-index: 9;
+}
+
+.category:hover .subcategory{
+	display: block;
+	transition: 0.25s;
+	background-color: #202020;
+	animation: fadein 300ms ease-in-out both;
+}
+
+.subcategory li:hover ul{
+	display: block;
+	transition: 0.25s;
+	background-color: #202020;
+	animation: fadein 300ms ease-in-out both;
+}
+
+.subcategory li a .fa-chevron-right{
+	display: none;
+}
+
+.subcategory li:hover a .fa-chevron-right{
+	display: block;
+}
+
+@keyframes fadein{
+	0%{
+		opacity: 0;
+		left: 0;
+	}
+
+	100%{
+		opacity: 1;
+		z-index: 10;
+		left: 200px;
+	}
+}
+
+.category .subcategory li{
+	padding-bottom: 5px;
+	transition: 0.25s;
+	padding: 0;
+	padding-left: 25px;
+	z-index: 9;
+}
+
+.category .subcategory li:hover{
+	background-color: #a24cc2;
+}
+
+
+.slideshow, .slideshow *{
+	z-index: 9;
+}
+
+.slideshow{
+	width: 1000px;
+	height: 100%;
+	background-color: black;
+	position: absolute;
+	left: calc(50% + 100px);
+	transform: translateX(-50%);
+	z-index: 9;
+}
+
+.slide{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.slide img{
+	z-index: 9;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.slide-nav{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 10;
+	list-style: none;
+	text-align: center;
+	line-height: 50px;
+	background-color: #60606090;
+}
+
+.dot{
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	z-index: 10;
+	display: inline-block;
+	margin-right: 12px;
+	margin-left: 12px;
+	border: 3px solid white;
+	transition: 0.25s;
+	cursor: pointer;
+}
+
+.dot:hover{
+	background-color: white;
+}
+
+#s1, #s2, #s3, #s4, #s5{
+	opacity: 0;
+}
+
+#i1:checked ~ #s1,
+#i2:checked ~ #s2,
+#i3:checked ~ #s3,
+#i4:checked ~ #s4,
+#i5:checked ~ #s5{
+	transition: 1s;
+	z-index: 9;
+	opacity: 1;
+}
+
+#i1:checked ~ .slide-nav #dot1,
+#i2:checked ~ .slide-nav #dot2,
+#i3:checked ~ .slide-nav #dot3,
+#i4:checked ~ .slide-nav #dot4,
+#i5:checked ~ .slide-nav #dot5{
+	background-color: white;
+}
+
+input[name="slide-num"]{
+	display: none;
+}
+
+@media (max-width: 1200px){
+	.slideshow *{
+		display: none;
+	}
+}
+
+.products{
+	background-color: #202020;
+	width: calc(100vw - 150px);
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	overflow: hidden;
+	height: 100%;
+	text-align: center;
+}
+

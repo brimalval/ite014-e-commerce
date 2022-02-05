@@ -1,0 +1,36 @@
+.left-separator{
+    position: absolute;
+    display: inline-block;
+    width: 65%;
+    background-color: yellow;
+    padding: 10px;
+}
+
+.right-separator{
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+    display: inline-block;
+    width: 33%;
+    height: 100%;
+    padding: 10px;
+    background-color: green;
+}
+
+.item-details-and-delivery-option{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 750px;
+    height: 250px;
+    background-color: blue;
+}
+
+.order-summary{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 600px;
+    background-color: red;
+}

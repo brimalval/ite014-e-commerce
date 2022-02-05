@@ -1,0 +1,113 @@
+.add-po-form-window{
+	width: 650px;
+	height: 400px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 100px;
+	background-color: #202020;
+}
+
+*{
+	font-family: segoe ui;
+}
+
+body{
+	background-color: #606060;
+}
+
+.po-type-sticker{
+	width: 100px;
+	height: 50px;
+	display: inline-block;
+	margin: 0px;
+	box-sizing: border-box;
+}
+
+.po-type-sticker img{
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.selected-sticker{
+	border: 5px solid purple;
+}
+
+#mc-btn div img,
+#vs-btn div img,
+#pp-btn div img{
+	border: 0px solid white;
+}
+
+#mastercard:checked ~ #mc-btn div img,
+#visa:checked ~ #vs-btn div img,
+#paypal:checked ~ #pp-btn div img{
+	transition: 0.25s;
+	border: 2px solid #a24cc2;
+}
+
+input[type="radio"]{
+	display: none;
+}
+
+.cc-po-type-stickers, .cc-numbers {
+	padding: 10px;
+	width: 100%;
+	text-align: center;
+}
+
+.cc-num{
+	width: 100px;
+	line-height: 50px;
+	height: 50px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.cc-num:focus{
+	outline: 2px solid #a24cc2;
+}
+
+select{
+	line-height: 50px;
+	height: 50px;
+	width: 300px;
+	font-size: 20px;
+}
+
+.content button[type="submit"]{
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	line-height: 50px;
+	height: 50px;
+	width: 200px;
+	font-size: 20px;
+	background-color: #a24cc2;
+	color: white;
+	outline: 0;
+	border: 0;
+}
+
+.content button[type="submit"]:hover{
+	transition: 0.25s;
+	background-color: #823D9B;
+	cursor: pointer;
+}
+
+h1{
+	position: absolute;
+	top: -50px;
+	color: white;
+	font-weight: 500;
+}
+
+.pm-lbl{
+	width: 100%;
+	padding-left: 10px;
+	background-color: #00000090;
+	color: white;
+	font-weight: 400;
+}

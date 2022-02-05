@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lazopee - {{ product_details['name'] }}</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/universal.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/header-bar.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/product-page.css')}}">
+	<script>
+		function inc(element){
+			element.stepUp();
+			if(element.value != 0){
+				document.getElementById("dec-"+element.id).disabled = false;
+				document.getElementById("dec-"+element.id).classList.remove("disabled-btn");
+			}
+			
+			var price_w_quantity = document.getElementById('percentage-slashed');
+			var price = parseFloat(price_w_quantity.innerHTML.substring(1));
+			var indiv_price = parseFloat(document.getElementById('item-final-price').innerHTML.substring(1));
+
+			price = indiv_price * element.value;
+			if(price != 0){
+				price_w_quantity.innerHTML = "₱" + price.toFixed(2);
+			}
+		}
+
+		function dec(element){
+			element.stepDown();
+			if(element.value <= "1"){
+				document.getElementById("dec-"+element.id).disabled = true;
+				document.getElementById("dec-"+element.id).classList.add("disabled-btn");
+			}
+
+			var price_w_quantity = document.getElementById('percentage-slashed');
+			var price = parseFloat(price_w_quantity.innerHTML.substring(1));
+			var indiv_price = parseFloat(document.getElementById('item-final-price').innerHTML.substring(1));
+
+			price = indiv_price * element.value;
+			price_w_quantity.innerHTML = "₱" + price.toFixed(2);
+		}
+
+		function incWithRollover(element){
+			if(element.max != 0){
+				var current_val = parseInt(element.value);
+				var max_val = parseInt(element.max);
+				if(max_val == 1){
+					return;
+				}
+				var next_prev = (current_val % max_val) + 1;
+				if(element.value == ("" + max_val)){
+					element.value = "1";
+				}else{
+					element.stepUp();
+				}
+				document.getElementById("prev" + next_prev).style.display = "block";
+				document.getElementById("prev" + current_val).style.display = "none";
+			}
+		}
+
+		function decWithRollover(element){
+			var current_val = parseInt(element.value);
+			var max_val = parseInt(element.max);
+			if(max_val == 1){
+				return;
+			}
+			var next_prev = (current_val - 1) % max_val;
+			next_prev = next_prev == 0 ? max_val : next_prev;
+			if(element.value == "1"){
+				element.value = "" + max_val;
+			}else{
+				element.stepDown();
+			}
+			document.getElementById("prev" + next_prev).style.display = "block";
+			document.getElementById("prev" + current_val).style.display = "none";
+		}
+
+		function changeAddress(ind){
+			var div = document.getElementsByClassName('select-and-confirm-address')[ind];
+			var add_lbl = document.getElementsByClassName('selected-address')[ind];
+			var sel = document.getElementsByClassName('address-list-select')[ind];
+			var hidden = document.getElementsByClassName('address-id-selected')[ind];
+			add_lbl.innerHTML = sel.options[sel.selectedIndex].innerHTML;
+			hidden.value = sel.options[sel.selectedIndex].value;
+			div.style.display = "none";
+		}
+
+		function toggleSelection(ind){
+			var btn = document.getElementsByClassName('change-address')[ind];
+			var div = document.getElementsByClassName('select-and-confirm-address')[ind];
+			if (div.style.display == "none"){
+				div.style.display = "block";
+			}else{
+				div.style.display = "none";
+			}
+		}
+
+		// document.addEventListener("click",function(e){
+		// 	var div = document.getElementById('select-and-confirm-address');
+		// 	var btn = document.getElementById('change-address');
+		// 	var isWindow = e.target == div;
+		// 	var isDescendant = e.target.parentNode == div;
+		// 	console.log(!(isWindow || isDescendant));
+
+		// 	if(!(isWindow || isDescendant) && e.target != btn){
+		// 		div.style.display = "none";
+		// 	}
+		// });
+
+		document.addEventListener("DOMContentLoaded",
+		function(){
+			var product_description_text = document.getElementById("product-description-text");
+			product_description_text.style.height = (product_description_text.scrollHeight + 5) + "px";
+			var preview_count = document.getElementById("product-prev-num").max;
+			document.getElementById("prev-img-count").innerHTML = "" + preview_count;
+		});
+	</script>
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+
+	<div class="content">
+		
+		
+		<!-- <p id="product-path">Smart Devices <i class="fas fa-chevron-right"></i> </p> -->
+		<p id="product-path">
+		{% for category in categories %}
+			{% if category['category_name'] is not none %}
+				{{category['category_name'][0].upper()}}{{ category['category_name'][1:].replace('_', ' ') }}
+				{% if loop.index != 0 %}
+					<i class="fas fa-chevron-right"></i>
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+		{{ product_details['name'] }}
+		</p>
+		<div class="product-wrapper">
+			<div class="preview-img-and-control-wrapper">
+				<div class="preview-img-wrapper">
+					{% if images[0] is defined %}
+						{% for image in images %}
+							{% if loop.index != 1 %}
+								<div class="preview-img" id="prev{{ loop.index }}" style="display: none">
+									<img src="{{url_for('static',filename=image['image_name'])}}">
+								</div>
+							{% else %}
+								<div class="preview-img" id="prev{{ loop.index }}" style="display: block">
+									<img src="{{url_for('static',filename=image['image_name'])}}">
+								</div>
+							{% endif %}
+						{% endfor %}
+					{% else %}
+						<div class="preview-img" id="prev1" style="display: block">
+							<img src="{{url_for('static',filename='img/no-img.jpg')}}">
+						</div>
+					{% endif %}
+				</div>
+				<div class="control">
+					<button id="prev" onclick="decWithRollover(document.getElementById('product-prev-num'))">
+						<i class="fas fa-chevron-left"></i>
+					</button>
+					{% if images|length > 0 %}
+					<input type="number" id="product-prev-num" value="1" min="1" max="{{ images|length }}">
+					{% else %}
+					<input type="number" id="product-prev-num" value="0" min="0" max="0">
+					{% endif %}
+					<span> / <label id="prev-img-count"></label></span>
+					<button id="next" onclick="incWithRollover(document.getElementById('product-prev-num'))">
+						<i class="fas fa-chevron-right"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="details-and-buttons-wrapper">
+				<p id="item-name">{{ product_details['name'] }}</p>
+				<hr>
+				<h1 id="item-final-price">₱{{ product_details['price'] }}</h4>
+				<div id="discount-wrapper">
+					<label for="percentage-slashed" style="color: white;">Total: </label>
+					{% if product_details['stock'] == 0 %}
+					<h4 id="percentage-slashed" style="color: red">NO STOCK AVAILABLE</h4>
+					{% else %}
+					<h4 id="percentage-slashed">₱{{ product_details['price'] }}</h4>
+					{% endif %}
+				</div>
+				<div class="qty-control">
+					<label id="qty-lbl">Quantity: </label>
+					<button id="dec-qty" class="disabled-btn plus-minus" onclick="dec(document.getElementById('qty'))" disabled="true"><i class="fas fa-minus"></i></button>
+					<form method="POST">
+						{% if session['uid'] == 1 %}
+						<input type="number" name="add-stock" style="position: relative; left: 90px">
+						<button type="submit" name="transact-type" value="restock" style="position: relative; left: 90px;">Restock</button>
+						{% endif %}
+						{% if addresses is not none %}
+							{% if addresses|length > 0 %}
+							<input type="hidden" name="address_id" class="address-id-selected" value="{{ first_address['address_id'] }}">
+							{% else %}
+							<input type="hidden" name="address_id" class="address-id-selected" value="-1">
+							{% endif %}
+						{% endif %}
+						{% if payment_options is not none %}
+							{% if payment_options|length > 0 %}
+							<input type="hidden" name="payment_id" class="address-id-selected" value="{{ payment_options[0]['payment_id'] }}">
+							{% else %}
+							<input type="hidden" name="payment_id" class="address-id-selected" value="-1">
+							{% endif %}
+						{% endif %}
+
+						{% if product_details['stock'] == 0 %}
+						<input name="qty" id="qty" type="number" value="0" min="0" max="{{ product_details['stock'] }}" readonly>
+						{% else %}
+						<input name="qty" id="qty" type="number" value="1" min="1" max="{{ product_details['stock'] }}" readonly>
+						{% endif %}
+						
+						<button type="submit" name="transact-type" value="buy">Buy Now</button>
+						<button type="submit" name="transact-type" value="cart">Add to Cart</button>
+					</form>
+					<button class="plus-minus" onclick="inc(document.getElementById('qty'))"><i class="fas fa-plus"></i></button>
+				</div>
+			</div>
+
+			<div class="delivery-options-wrapper">
+				<h5 id="delivery-lbl">Delivery options</h5>
+				<div class="address-and-delivery-type">
+					<div class="address">
+						<div class="a-d-icon-wrapper">
+							<i class="fas fa-map-marker-alt"></i> 
+						</div>
+						<p class="a-d-text selected-address" id="selected-address">
+							{% if addresses is not none %}
+								{% if addresses|length > 0 %}
+								{{ first_address['city'] }}, {{ first_address['address1'] }} {{ first_address['address2'] }}
+								{% else %}
+								None available
+								{% endif %}
+							{% endif %}
+						</p>
+						{% if addresses is not none %}
+							{% if addresses|length > 0 %}
+							<button class="change-address" id="change-address" onclick="toggleSelection(0)">Change</button>
+							{% endif %}
+						{% endif %}
+						<div class="select-and-confirm-address" id="select-and-confirm-address">
+							<select class="address-list-select" id="address-list-select">
+								{% if addresses is not none %}
+									{% for address in addresses %}
+										<option value="{{ address['address_id'] }}">{{ address['address1'] }} {{ address['address2'] }}, {{ address['city'] }}, {{ address['name'] }}</option>
+									{% endfor %}
+								{% endif %}
+							</select>
+							<button onclick="changeAddress(0)">Confirm</button>
+						</div>
+					</div>
+					<hr>
+					<!-- Payment Type -->
+					<div class="address" style="z-index: 9">
+						<div class="a-d-icon-wrapper">
+							<i class="far fa-credit-card"></i> 
+						</div>
+						<p class="a-d-text selected-address" id="selected-address">
+							{% if payment_options is not none %}
+								{% if payment_options|length > 0 %}
+								{% set fpo = payment_options[0] %}
+								{{ fpo['payment_method'].upper() }} card ending in {{ fpo['credit_card_number'][-4:] }}
+								{% else %}
+								None available
+								{% endif %}
+							{% endif %}
+						</p>
+						{% if payment_options is not none %}
+							{% if payment_options|length > 0 %}
+							<button class="change-address" id="change-address" onclick="toggleSelection(1)">Change</button>
+							{% endif %}
+						{% endif %}
+						<div class="select-and-confirm-address" id="select-and-confirm-address">
+							<select class="address-list-select" id="address-list-select">
+								{% if payment_options is not none %}
+									{% for po in payment_options %}
+										<option value="{{ po['payment_id'] }}">{{ po['payment_method'].upper() }} card ending in {{ po['credit_card_number'][-4:] }}</option>
+									{% endfor %}
+								{% endif %}
+							</select>
+							<button onclick="changeAddress(1)">Confirm</button>
+						</div>
+					</div>
+					<hr>
+					<div class="delivery-type">
+						<div class="a-d-icon-wrapper">
+							<i class="fas fa-truck-loading"></i>
+						</div>
+						<p class="a-d-text">Standard Delivery</p>
+						<p class="a-d-sub-text">7 day(s)</p>
+						<div class="courier-price">
+							<p>₱{{ carrier_price['price']|round(2) }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="product-details-and-specs">
+			<p class="product-name">Product details of {{ product_details['name'] }}</p>
+			<div class="product-description">
+				<textarea id="product-description-text">{{ product_details['description'] }}</textarea>
+			</div>
+			<hr>
+			<h4 id="sku-lbl">SKU</h4>
+			<h4 id="sku-value">{{ product_details['sku'] }}</h4>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+CREATE TABLE countries(
+	country_code VARCHAR(50) PRIMARY KEY,
+	name VARCHAR(255)
+);
+
+CREATE TABLE customers(
+	customer_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(50),
+	last_name VARCHAR(50),
+	gender SMALLINT,
+	birthday DATE,
+	email_address VARCHAR(255),
+	username VARCHAR(255),
+	password VARCHAR(255),
+	contact VARCHAR(50)
+);

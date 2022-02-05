@@ -1,0 +1,48 @@
+.form-box{
+	width: 500px;
+	text-align: center;
+	background-color: #202020;
+	position: relative;
+	left: 50%;
+	top: 90px;
+	transform: translateX(-50%);
+	padding-bottom: 40px;
+}
+
+.content{
+	height: 100vh;
+}
+
+body{
+	overflow-y: hidden;
+}
+
+#login-lbl{
+	text-align: left;
+	position: relative;
+	font-weight: 400;
+	top: -40px;
+}
+
+.form-box button[type="submit"]{
+	line-height: 50px;
+}
+
+.error{
+	position: absolute;
+	top: 0;
+	text-align: center;
+	width: 100%;
+	line-height: 25px;
+	background-color: #ff000090;
+	color: white;
+	display: none;
+}
+
+.error .fa-times{
+	margin-right: 10px;
+}
+
+.visible{
+	display: block;
+}

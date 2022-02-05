@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Address List</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/universal.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+
+	<div class="content">
+		<div class="profile-navigation">
+			<div class="greeting">
+				{% include 'greeting.html' %}
+			</div>
+			<div class="nav-items">
+				<ul>
+					<li class="nav-item"><a href="/user">Manage Account</a>
+						<ul>
+							<li><a href="/profile">Profile</a></li>
+							<li><a style="color: purple" href="/address">Address List</a></li>
+							<li><a href="/payment-options">Payment Options</a></li>
+						</ul>
+					</li>
+					<li class="nav-item"><a href="/orders">My Orders</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="profile-edit">
+			<h1 id="window-title">Address List</h1>
+			<div class="edit-window-scrollable">
+				<h4 class="address-list-lbl">Current Address/es</h4>
+				<div class="address-blocks">
+					{% if addresses[0] is not defined %}
+						<h4 style="padding-left: 20px; font-weight: 400; margin: 10px">No addresses added.</h4>
+					{% else %}
+						{% for address in addresses %}
+						<div class="address-block">
+							<form method="POST">
+								<div class="add-address-col" id="add-address-col1">
+									<h4 class="profile-edit-lbl">Address Line 1</h4>
+									<!--<h4 class="add-address-static-lbl">{{ address['address1'] }}</h4>-->
+									<input type="text" name="address1" value="{{ address['address1'] }}">
+									<h4 class="profile-edit-lbl">Address Line 2</h4>
+									<!--<h4 class="add-address-static-lbl">{{ address['address2'] }}</h4>-->
+									<input type="text" name="address2" value="{{ address['address2'] }}">
+									<h4 class="profile-edit-lbl">Postal Code</h4>
+									<!--<h4 class="add-address-static-lbl">{{ address['postal_code'] }}</h4>-->
+									<input type="text" name="postal" value="{{ address['postal_code'] }}">
+								</div>
+								<div class="add-address-col" id="add-address-col2">
+									<h4 class="profile-edit-lbl">City</h4>
+									<!--<h4 class="add-address-static-lbl">{{ address['city'] }}</h4>-->
+									<input type="text" name="city" value="{{ address['city'] }}">
+									<h4 class="profile-edit-lbl">Country</h4>
+									<!--<h4 class="add-address-static-lbl">{{ address['name'] }}</h4>-->
+									<select name="country" selected="{{ address['name'] }}">
+										<option value="{{ address['country_code'] }}" selected>{{ address['name'] }}</option>
+										{% for country in countries %}
+											<option value="{{ country['country_code'] }}">{{ country['name'] }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<input name="address_id" type="hidden" value="{{ address['address_id'] }}">	
+								<div class="indiv-add-btns" style="position: absolute; right:0; z-index: 9">
+									<button value="update" name="submit-type" class="indiv-add-btn">Update</button>
+									<button value="delete" name="submit-type" class="indiv-add-btn">Remove</button>
+								</div>
+							</form>
+						</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+				<h4 class="address-list-lbl">Add Address</h4>
+				<div class="add-address-form">
+					<form method="POST">
+						<div class="add-address-col" id="add-address-col1">
+							<h4 class="profile-edit-lbl">Address Line 1</h4>
+							<input type="text" name="address1" required>
+							<h4 class="profile-edit-lbl">Address Line 2</h4>
+							<input type="text" name="address2" required>
+						</div>
+						<div class="add-address-col" id="add-address-col2">
+							<h4 class="profile-edit-lbl">City</h4>
+							<input type="text" name="city" required>
+							<h4 class="profile-edit-lbl">Country</h4>
+							<select name="country">
+								{% for country in countries %}
+									<option value="{{ country['country_code'] }}">{{ country['name'] }}</option>
+								{% endfor %}
+							</select>
+							<h4 class="profile-edit-lbl">Postal Code</h4>
+							<input type="text" name="postal" required>	
+						</div>
+						<div class="add-address-button-div">
+							<button type="submit">Add Address</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

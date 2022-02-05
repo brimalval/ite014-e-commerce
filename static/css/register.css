@@ -1,0 +1,59 @@
+.form-box{
+	width: 800px;
+	height: 400px;
+	position: relative;
+	left: 50%;
+	top: 50px;
+	transform: translateX(-50%);
+}
+
+.form-box *{
+	box-sizing: border-box;
+}
+
+.form-block-1, .form-block-2{
+	background-color: #202020;
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	text-align: center;
+	padding-top: 25px;
+}
+
+.form-block-1{
+	left: 0;
+}
+
+.form-block-2{
+	right: 0;
+}
+
+#create-lbl{
+	position: relative;
+	top: -25px;
+	font-weight: 400;
+	font-family: "segoe ui";
+}
+
+input[name="fn"], input[name="ln"]{
+	width: calc(50% - 17px);
+}
+
+.form-box button[type="submit"]{
+	margin-top: 21px;
+}
+
+#login-redirect{
+	position: absolute;
+	right: 0;
+	top: -15px;
+	font-weight: 400;
+}
+
+.content{
+	height: 100vh;
+}
+
+body{
+	overflow-y: hidden;
+}

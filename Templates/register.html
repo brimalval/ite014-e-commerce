@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lazopee - Sign-up</title>
+	<link rel="stylesheet" href="{{url_for('static',filename='css/form-items.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='css/register.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='css/universal.css')}}">
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+
+	<div class="content">
+		<div class="form-box">
+			<h2 id="create-lbl">Create a Lazopee account</h2>
+			<h5 id="login-redirect">
+				Already have an account? 
+				<a href="/login">Log-in</a>
+			</h5>
+			<form method="POST">
+				<div class="form-block-1">
+					<h4>Full name</h4>
+					<div class="full-name">
+						<input type="text" name="fn" placeholder="First Name" required>
+						<input type="text" name="ln" placeholder="Last Name" required>
+					</div>
+					<h4>Gender</h4>
+					<select name="gender">
+						<option value="0">Male</option>
+						<option value="1">Female</option>
+					</select>
+					<h4>Username</h4>
+					<input type="text" name="user" placeholder="Username" required>
+					<h4>Password</h4>
+					<input type="password" name="pass" placeholder="Password" required>
+				</div>
+
+				<div class="form-block-2">
+					<h4>E-Mail Address</h4>
+					<input type="email" name="email" placeholder="E-Mail" required>
+					<h4>Contact Number</h4>
+					<input type="tel" placeholder="Cellphone No." name="contact">
+					<h4>Birthdate</h4>
+					<input type="date" name="bday">
+					<button type="submit">Sign-up</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

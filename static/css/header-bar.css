@@ -1,0 +1,134 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "segoe ui";
+}
+
+.head{
+	z-index: 9999;
+	text-align: center;
+	width: 100vw;
+}
+
+.searchbar-and-logo div{
+	display: inline-block;
+}
+
+.logo{
+	display: inline-block;
+	text-align: center;
+	width: 75px;
+	height: 65px;
+	font-size: 40px;
+	color: white;
+	vertical-align: middle;
+}
+
+.logo-and-text{
+	text-align: left;
+	line-height: 60px;
+	width: 175px;
+	display: inline;
+	margin-right: 40px;
+	padding: 0;
+}
+
+#logo-home-link{
+	text-decoration: none;
+	color: black;
+}
+
+#shop-name{
+	font-size: 22px;
+	font-weight: 700;
+	color: white;
+}
+
+#shop-name:hover{
+	cursor: pointer;
+}
+
+.searchbar-and-button{
+	position: relative;
+}
+
+#search{
+	width: 60vw;
+	line-height: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 16px;
+	-webkit-appearance: none;
+	border: 0;
+	border-radius: 5px;
+}
+
+#search:focus{
+	outline: 0;
+}
+
+#search-button{
+	position: absolute;
+	right: 3px;
+	width: 60px;
+	line-height: 36px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: white;
+	background-color: #a24cc2;
+	border: 0;
+	border-radius: 5px;
+}
+
+#search-button:focus{
+	outline: none;
+}
+
+#search-button:hover{
+	cursor:pointer;
+}
+
+.login-and-register{
+	text-align: right;
+	list-style: none;
+	padding-right: 100px;
+}
+
+#cart-link{
+	margin-left: 50px;
+}
+
+#cart-link{
+	font-size: 20px;
+	color: white;
+}
+
+
+.login-and-register li{
+	display: inline-block;
+	line-height: 30px;
+	width: 60px;
+	text-align: center;
+}
+
+.head a{
+	text-decoration: none;
+	color: white;
+}
+
+.content{
+	margin-top: 98px;
+}
+
+@media (max-width: 740px){
+	.content{
+		margin-top: 122px;
+	}
+}
+
+@media (max-width: 548px){
+	.content{
+		margin-top: 138px;
+	}
+}

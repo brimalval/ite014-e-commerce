@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Payment Options</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/universal.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+	<style>
+		a.apf-link{
+			display: block;
+			text-align: center;
+			margin-top: 15px;
+			line-height: 40px;
+			height: 40px;
+			width: 250px;
+			font-size: 20px;
+			border: 0;
+			outline: 0;
+			color: white;
+			background-color: #a24cc2;
+			margin-left: 10px;
+			text-decoration: none;
+		}
+		a.apf-link:hover{
+			transition: 0.25s;
+			background-color: #73348A;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+
+	<div class="content">
+		<div class="profile-navigation">
+			<div class="greeting">
+				{% include 'greeting.html' %}
+			</div>
+			<div class="nav-items">
+				<ul>
+					<li class="nav-item"><a href="/user">Manage Account</a>
+						<ul>
+							<li><a href="/profile">Profile</a></li>
+							<li><a href="/address">Address List</a></li>
+							<li><a style="color: purple" href="/payment-options">Payment Options</a></li>
+						</ul>
+					</li>
+					<li class="nav-item"><a href="/orders">My Orders</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="profile-edit">
+			<h1 id="window-title">Payment Options</h1>
+			<div class="edit-window-scrollable" style="background-color: #606060">
+				<h4 class="address-list-lbl">Current Method/s</h4>
+				<div class="address-blocks">
+					{% for po in payment_options %}
+						<div class="address-block">
+							<div class="add-address-col" id="add-address-col1">
+								<h4 class="profile-edit-lbl">Payment Method</h4>
+								<!--<h4 class="add-address-static-lbl">{{ po['payment_method'] }}</h4>-->
+								{% set fn = "img/" + po['payment_method'] + "-sticker.jpg" %}
+								<div class="po-type-sticker"><img src="static/{{ fn }}"></div>
+								<h4 class="profile-edit-lbl">Credit Card Number</h4>
+								<h4 class="add-address-static-lbl">**** **** **** {{ po['credit_card_number'][-4:] }}</h4>
+							</div>
+							<div class="add-address-col" id="add-address-col2">
+								<h4 class="profile-edit-lbl">Currency</h4>
+								<h4 class="add-address-static-lbl">{{ po['name'] }} ({{ po['currency_code'] }})</h4>
+							</div>
+							<form method="POST">
+								<button name="pt_id" value="{{ po['payment_id'] }}" style="position: absolute; right: 10px; top: 10px;">
+									No longer in use?
+								</button>
+							</form>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="add-payment-form">
+					<a href="/add-payment-option" class="apf-link">Add Payment Method</a>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

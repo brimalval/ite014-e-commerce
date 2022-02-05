@@ -1,0 +1,54 @@
+CREATE TABLE products(
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    description TEXT,
+    price NUMERIC(13,6),
+    sku VARCHAR(50),
+    stock INT,
+    brand VARCHAR(50)
+);
+
+CREATE TABLE category(
+    product_id INT REFERENCES products(product_id),
+    category_name VARCHAR(255)
+);
+
+CREATE TABLE product_images(
+    product_id INT REFERENCES products(product_id),
+    image_name VARCHAR(255)
+);
+
+CREATE TABLE currency(
+    currency_code VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE payment_type(
+    payment_id SERIAL PRIMARY KEY,
+    payment_method VARCHAR(50),
+    credit_card_number VARCHAR(50),
+    currency_code VARCHAR(50) REFERENCES currency(currency_code)
+);
+
+CREATE TABLE carrier(
+    carrier_id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    price NUMERIC(13,6),
+    logo VARCHAR(255)
+);
+
+CREATE TABLE orders(
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES customers(customer_id),
+    status VARCHAR(10),
+    carrier_id INT REFERENCES carrier(carrier_id),
+    address_id INT REFERENCES addresses(address_id),
+    product_id INT REFERENCES products(product_id),
+    invoice_no VARCHAR(50),
+    shipping_fee NUMERIC(13,6),
+    total_tax NUMERIC(13,6),
+    total_price NUMERIC(13,6),
+    payment_id INT REFERENCES payment_type(payment_id),
+    delivery_date DATE,
+    quantity INT
+);

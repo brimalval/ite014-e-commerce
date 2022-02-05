@@ -1,0 +1,46 @@
+<head>
+	<link rel="stylesheet" href="{{url_for('static', filename='fontawesome-free-5.12.0-web/css/all.min.css')}}">
+	<script src="{{url_for('static', filename='fontawesome-free-5.12.0-web/js/all.min.js')}}" type="text/javascript"></script>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/header-bar.css')}}">
+</head>
+
+<div class="head">
+	<div class="login-and-register">
+		{% if "user" not in session %}
+		<ul>
+			<a href="/register">
+				<li>Sign-up</li>
+			</a>
+			|
+			<a href="/login">
+				<li>Log-in</li>
+			</a>
+		</ul>
+		{% else %}
+			{% if session["user"] == "admin" %}
+				<a href="/add-product">Add Product</a> | 
+			{% endif %}
+			<a href="/user">{{ session["fullname"] }}'s account</a> |
+			<a href="/log-out">Log-out</a>
+		{% endif %}
+	</div>
+	<div class="searchbar-and-logo">
+		<a href="/" id="logo-home-link">
+			<div class="logo-and-text">
+					<div class="logo"><i class="fab fa-suse"></i></div>
+					<label id="shop-name">Lazopee</label>
+			</div>
+		</a>
+
+		<div class="searchbar-and-button">
+			<form method="POST">
+				<input type="text" id="search" name="search" placeholder="Search for products">
+				<button type="submit" id="search-button"><i class="fas fa-search"></i></button>
+			</form>
+		</div>
+
+		<a href="cart" id="cart-link">
+			<i class="fas fa-shopping-cart"></i>
+		</a>
+	</div>
+</div>

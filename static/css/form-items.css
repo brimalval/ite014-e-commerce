@@ -1,0 +1,45 @@
+.form-box button[type="submit"]{
+	width: calc(100% - 30px);
+	line-height: 40px;
+	font-size: 22px;
+	background-color: #a24cc2;
+	outline: 0;
+	border: 0;
+	color: white;
+	border-radius: 5px;
+}
+
+.form-box button[type="submit"]:hover{
+	cursor: pointer;
+	transition: 0.25s;
+	background-color: #8941a3;
+}
+
+.form-box a{
+	color: #a24cc2;
+	text-decoration: none;
+}
+
+.form-box h4{
+	margin-left: 15px;
+	color: white;
+	font-weight: 400;
+	text-align: left;
+}
+
+.form-box input, .form-box select{
+	width: calc(100% - 30px);
+	height: 40px;
+	margin-bottom: 35px;
+	font-size: 18px;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 5px;
+	outline: 0;
+	border: 0;
+}
+
+.form-box input:focus, .form-box select:focus{
+	transition: 0.25s;
+	border: 2px solid #a24cc2;
+}

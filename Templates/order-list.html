@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Payment Options</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/universal.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+	<style>
+		a.apf-link{
+			display: block;
+			text-align: center;
+			margin-top: 15px;
+			line-height: 40px;
+			height: 40px;
+			width: 250px;
+			font-size: 20px;
+			border: 0;
+			outline: 0;
+			color: white;
+			background-color: #a24cc2;
+			margin-left: 10px;
+			text-decoration: none;
+		}
+		a.apf-link:hover{
+			transition: 0.25s;
+			background-color: #73348A;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="head-wrapper">
+		{% include 'header-bar.html' %}
+	</div>
+
+	<div class="content">
+		<div class="profile-navigation">
+			<div class="greeting">
+				Hello, Brian Vee
+			</div>
+			<div class="nav-items">
+				<ul>
+					<li class="nav-item"><a href="/user">Manage Account</a>
+						<ul>
+							<li><a href="/profile">Profile</a></li>
+							<li><a href="/address">Address List</a></li>
+							<li><a href="/payment-options">Payment Options</a></li>
+						</ul>
+					</li>
+					<li class="nav-item"><a style="color: purple" href="/orders">My Orders</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="profile-edit">
+			<h1 id="window-title">Payment Options</h1>
+			<div class="edit-window-scrollable" style="background-color: #606060">
+				
+			</div>
+		</div>
+</body>
+</html>

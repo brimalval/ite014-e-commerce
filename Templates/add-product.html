@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/universal.css')}}">
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <title>Add Product</title>
+    <style>
+        .content{
+            padding-left: 50px;
+        }
+        textarea{
+            display: block;
+        }
+
+        input[type="number"]{
+            display: inline-block;
+        }
+
+        .left-side, .right-side{
+            position: absolute;
+            background-color: red;
+            border-right: 1px solid black;
+        }
+
+        .right-side{
+            background-color: blue;
+            right: 50px;
+            display: block;
+        }
+
+        .left-side{
+            width: 30%;
+        }
+
+        .right-side{
+            width: 60%;
+        }
+
+        .img-container{
+            width: 150px;
+            height: 150px;
+            display: inline-block;
+            border: 2px solid black;
+            margin: 5px;
+        }
+
+        .img-container img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #img-list{
+            background-color: gray;
+            min-height: 160px;
+        }
+        
+    </style>
+    <script>
+       
+        $(document).ready(function(){
+            function toggleEnabled(obj){
+                if(obj.style.display != "none"){
+                    obj.style.display = "none";
+                }else{
+                    obj.style.display = "inline";
+                }
+                obj.disabled = !obj.disabled;
+            }
+            $('#thumbs').change(function(){
+                if(this.files){
+                    $('#img-list').html("");
+                    for(var i=0; i<this.files.length; i++){
+                        var imgurl = URL.createObjectURL(this.files[i]);
+                        var divcode = "<div class='img-container'><img src='"+imgurl+"'></div>"
+                        console.log(imgurl);
+                        $('#img-list').append(divcode);
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="head-wrapper">
+        {% include 'header-bar.html' %}
+    </div>
+
+    <div class="content">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="left-side">
+                <label for="product_name">Product Name:</label>
+                <input type="text" id="product_name" name="product_name"><br>
+                <label for="desc">Description:</label>
+                <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+                <label for="price">Price: ₱</label>
+                <input type="number" step="any" id="price" name="price"><br>
+                <label for="sku">SKU: </label>
+                <input type="text" id="sku" name="sku"><br>
+                <label for="stock">Stock: </label>
+                <input id="stock" name="stock" type="number"><br>
+                <label for="brand">Brand: </label>
+                <input type="text" id="brand" name="brand"><br>
+                <label for="carrier">Carrier:</label>
+                <select name="carrier" id="carrier">
+                    {% for carrier in carriers %}
+                    <option value="{{ carrier['carrier_id'] }}">{{ carrier['name'] }} - Charges ₱{{ carrier['price']|round(2) }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="right-side">
+                <div id="img-list" class="img-list">
+                    
+                </div>
+                    <input type="file" multiple="true" id="thumbs" name="thumbs">
+                <div class="category">
+                    <h4>Category</h4>
+                    <label for="earphones">Earphones</label>
+                    <input class="category" type="radio" name="category" id="earphones" value="1"><br>
+                    <label for="headphones">Headphones</label>
+                    <input class="category" type="radio" name="category" id="headphones" value="2"><br>
+                    <label for="mouse">Mouse</label>
+                    <input class="category" type="radio" name="category" id="mouse" value="3">    <br>
+                    <label for="mousepad">Mousepad</label>
+                    <input class="category" type="radio" name="category" id="mousepad" value="4"><br>
+                    <label for="keyboard">Keyboard</label>
+                    <input class="category" type="radio" name="category" id="keyboard" value="5"><br>
+                </div>
+                <div class="subcategory">
+                    <h4>Subcategory</h4>
+                    <label for="earphones">Wired</label>
+                    <input type="radio" name="subcategory" id="wired" value="6"><br>
+                    <label for="earphones">Wireless</label>
+                    <input type="radio" name="subcategory" id="wireless" value="7"><br>
+                    <label for="earphones">True Wireless</label>
+                    <input type="radio" name="subcategory" id="twireless" value="8"><br>
+                    <label for="earphones">Regular</label>
+                    <input type="radio" name="subcategory" id="regular" value="9"><br>
+                    <label for="earphones">Extended</label>
+                    <input type="radio" name="subcategory" id="extended" value="10"><br>
+                    <label for="earphones">Membrane</label>
+                    <input type="radio" name="subcategory" id="membrane" value="11"><br>
+                    <label for="earphones">Mechanical</label>
+                    <input type="radio" name="subcategory" id="mechanical" value="12"><br>
+                </div>
+                <div class="subsubcategory">
+                    <h4>Subsubcategory</h4>
+                    <label for="earphones">Wired</label>
+                    <input type="radio" name="sscategory" id="wired" value="6"><br>
+                    <label for="earphones">Wireless</label>
+                    <input type="radio" name="sscategory" id="wireless" value="7"><br>
+                </div>
+                <input type="submit" value="Add Product" style="display: block;">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
